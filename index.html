@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@700;900&display=swap" rel="stylesheet">
+
+<title>Important Message</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:linear-gradient(135deg,#ffeb3b,#ff9800);
+    overflow-x:hidden;
+    text-align:center;
+}
+
+/* Start Screen */
+
+#startScreen{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:#111;
+    color:white;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+#startScreen h1{
+    font-size:50px;
+    margin-bottom:20px;
+}
+
+#startScreen p{
+    font-size:22px;
+    margin-bottom:20px;
+}
+
+#startScreen button{
+    padding:18px 35px;
+    font-size:22px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+}
+
+/* Main Content */
+
+.main{
+    padding:40px 20px;
+}
+
+.main h1{
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: clamp(2rem, 8vw, 4rem);
+    font-weight: 900;
+    color: #ff1744;
+    line-height: 1.2;
+    text-align: center;
+    padding: 0 12px;
+    margin: 20px auto;
+    text-shadow:
+        2px 2px 0 #fff,
+        4px 4px 0 rgba(0,0,0,0.2);
+    animation: shake 0.5s infinite;
+    word-break: break-word;
+}
+
+.main p{
+    font-size:28px;
+    margin-top:15px;
+}
+
+.photos{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:20px;
+    margin-top:30px;
+    padding:0 10px;
+}
+
+
+.photos img,
+.photos video{
+    width:min(90vw, 400px);
+    height:min(90vw, 400px);
+    object-fit:cover;
+    border-radius:20px;
+    box-shadow:0 0 15px rgba(0,0,0,0.5);
+}
+
+@keyframes shake{
+    0%,100%{
+        transform:rotate(-3deg);
+    }
+    50%{
+        transform:rotate(3deg);
+    }
+}
+
+/* Flying Emojis */
+
+.emoji{
+    position:fixed;
+    font-size:40px;
+    pointer-events:none;
+    animation:fly 6s linear forwards;
+}
+
+@keyframes fly{
+    from{
+        transform:translateY(100vh);
+        opacity:1;
+    }
+    to{
+        transform:translateY(-150px);
+        opacity:0;
+    }
+}
+.heading-card{
+    background: rgba(255,255,255,0.9);
+    margin: 20px 10px;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+#startScreen h1{
+    font-size: clamp(1.8rem, 6vw, 3rem);
+    text-align: center;
+    padding: 0 20px;
+    line-height: 1.3;
+    margin-bottom: 15px;
+}
+
+#startScreen p{
+    font-size: clamp(1rem, 4vw, 1.3rem);
+    text-align: center;
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
+
+#startScreen button{
+    padding: 15px 30px;
+    font-size: clamp(1rem, 4vw, 1.2rem);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Intro Screen -->
+
+<div id="startScreen">
+
+    <h1>🚨 Important Message For You 🚨</h1>
+
+    <p>
+        Click below to reveal the important announcement.
+    </p>
+
+    <button onclick="startPrank()">
+        Reveal Message 😈
+    </button>
+
+</div>
+
+<!-- Main Page -->
+
+<div class="main">
+
+   <div class="heading-card">
+    <h1>😂मी मूर्ख लवड्याचा आहे 😂</h1>
+</div>
+
+    <p>
+        Official announcement certified by the International Murkh Association.
+    </p>
+
+    <div class="photos">
+        <img src="photo1.jpeg">
+        <img src="photo2.jpeg">
+        <img src="photo3.jpeg">
+    </div>
+
+</div>
+
+<!-- Audio -->
+
+<audio id="music" loop>
+    <source src="meme.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Confetti Library -->
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+<script>
+
+function startPrank(){
+
+    document.getElementById("startScreen").style.display="none";
+
+    document.getElementById("music").play();
+
+    confetti({
+        particleCount:300,
+        spread:180,
+        origin:{y:0.6}
+    });
+
+}
+
+/* Continuous Confetti */
+
+setInterval(() => {
+
+    confetti({
+        particleCount:120,
+        spread:100,
+        origin:{
+            x:Math.random(),
+            y:Math.random()-0.2
+        }
+    });
+
+},4000);
+
+/* Flying Emojis */
+
+const emojis=["😂","🤣","🤡","💀","🙈","🐒","😜"];
+
+function createEmoji(){
+
+    const e=document.createElement("div");
+
+    e.className="emoji";
+
+    e.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
+
+    e.style.left=Math.random()*100+"vw";
+
+    document.body.appendChild(e);
+
+    setTimeout(()=>{
+        e.remove();
+    },6000);
+
+}
+
+setInterval(createEmoji,400);
+
+</script>
+
+</body>
+</html>
